@@ -10,9 +10,7 @@ build_template() {
     export GOARCH=$2
     export GOARM=7
     ext=$3
-    date=$(date +'%Y.%m.%d')
-    version=${CIRCLE_BUILD_NUM-$date}
-    tag=v$version-$(git log --format=%h -1)
+    tag=$(./astheno-ci-utils/new-tag.sh)
     echo $tag-$GOOS-$GOARCH
     go build -ldflags="-s -w" -o ./bin/andesite-$tag-$GOOS-$GOARCH$ext
 }
